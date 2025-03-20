@@ -1,0 +1,12 @@
+[Unit]
+Description=Work Hours Break Reminder (Async)
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/break_reminder.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
