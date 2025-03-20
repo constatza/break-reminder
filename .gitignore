@@ -1,3 +1,47 @@
 
-.idea
-.venv
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# PyInstaller
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+
+# Editor / IDE specific files
+*.swp
+*~
+*.idea/
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# makepkg and Arch Linux packaging artifacts
+pkg/
+src/
+*.pkg.tar.*
+*.SRCINFO
+
+# Temporary backup files
+PKGBUILD.old

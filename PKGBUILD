@@ -2,7 +2,7 @@
 pkgname=break-reminder
 pkgver=1.0.0
 pkgrel=1
-pkgdesc="Work hours break reminder daemon (system-wide)"
+pkgdesc="Work hours break reminder daemon (user-level)"
 arch=('any')
 url="http://localrepo"  # or your repository URL if available
 license=('MIT')
@@ -14,11 +14,13 @@ md5sums=('SKIP' 'SKIP' 'SKIP')
 
 package() {
   # Install the Python script to /usr/local/bin and mark it executable
-  install -Dm755 "$srcdir/break_reminder_work_async.py" "$pkgdir/usr/local/bin/break_reminder_work_async.py"
+  install -Dm755 "$srcdir/break_reminder.py" "$pkgdir/usr/local/bin/break_reminder.py"
 
-  # Install the configuration file to /etc
-  install -Dm644 "$srcdir/break_reminder.conf" "$pkgdir/etc/break_reminder.conf"
+  # Install the configuration file to /etc/xdg for system-wide defaults.
+  # Users can override this by placing a config file in their $XDG_CONFIG_HOME.
+  install -Dm644 "$srcdir/break_reminder.conf" "$pkgdir/etc/xdg/break-reminder.conf"
 
-  # Install the systemd service unit file to /etc/systemd/system
-  install -Dm644 "$srcdir/break-reminder.service" "$pkgdir/etc/systemd/system/break-reminder.service"
+  # Install the systemd user service unit file to the proper directory.
+  install -Dm644 "$srcdir/break-reminder.service" "$pkgdir/usr/lib/systemd/user/break-reminder.service"
 }
+

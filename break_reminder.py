@@ -29,15 +29,15 @@ NOTIFICATION_TITLE = "Break Reminder"
 NOTIFICATION_MESSAGE = "It's time to take a break and stretch!"
 
 # Default values for configuration
-DEFAULT_INTERVAL = 10 # seconds
+DEFAULT_INTERVAL = 3600 # seconds
 DEFAULT_START = "09:00"
 DEFAULT_END = "17:00"
 
 # Define configuration file paths:
-SYSTEM_CONFIG_PATH = "/etc/break_reminder.conf"
+SYSTEM_CONFIG_PATH = "/etc/xdg/break-reminder.conf"
 USER_CONFIG_PATH = os.path.join(
     os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")),
-    "break_reminder.conf"
+    "break-reminder.conf"
 )
 
 
@@ -95,7 +95,7 @@ def time_until(target: datetime.datetime) -> float:
     return max(delta.total_seconds(), 0)
 
 
-def send_notification(title: str, message: str, timeout: int) -> None:
+def send_notification(title: str, message: str, timeout: int = 10) -> None:
     """Sends a desktop notification using notify2.
 
     Args:
@@ -156,6 +156,7 @@ async def main() -> None:
     while True:
         if within_work_hours(work_start, work_end):
             if first_run:
+                send_notification(NOTIFICATION_TITLE, "Starting work.", timeout=10)
                 print(f"Delaying first notification for {interval} seconds.")
                 await asyncio.sleep(interval)
                 first_run = False
